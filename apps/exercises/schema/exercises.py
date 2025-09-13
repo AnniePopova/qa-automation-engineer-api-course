@@ -29,6 +29,9 @@ class CreateExerciseRequest(BaseModel):
 
     @model_validator(mode='after')
     def validate_model(self) -> Self:
+        if (self.max_score is None) or (self.min_score is None):
+            return self
+
         if self.max_score < self.min_score:
             raise ValueError('max score should not be less than min score')
 
@@ -45,6 +48,9 @@ class UpdateExerciseRequest(BaseModel):
 
     @model_validator(mode='after')
     def validate_model(self) -> Self:
+        if (self.max_score is None) or (self.min_score is None):
+            return self
+
         if self.max_score < self.min_score:
             raise ValueError('max score should not be less than min score')
 
